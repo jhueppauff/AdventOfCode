@@ -19,7 +19,7 @@ namespace Advent2
                 {
                     MinimumLength = Convert.ToInt32(item.Split('-')[0]),
                     MaximumLength = Convert.ToInt32(((item.Split('-')[1]).Split(' ')[0])),
-                    Character = Convert.ToChar((item.Split(' ')[1]).Replace(":","")),
+                    Character = Convert.ToChar((item.Split(' ')[1]).Replace(":", "")),
                     Password = item.Split(' ')[2]
                 };
 
@@ -31,8 +31,15 @@ namespace Advent2
 
             foreach (var passwordProperty in passwordProperties)
             {
-                int countOfOccurence = passwordProperty.Password.Split(passwordProperty.Character).Length - 1;
+                /*int countOfOccurence = passwordProperty.Password.Split(passwordProperty.Character).Length - 1;
                 if (countOfOccurence <= passwordProperty.MaximumLength && countOfOccurence >= passwordProperty.MinimumLength)
+                {
+                    Console.WriteLine($"Found : {passwordProperty.Password}");
+                    i++;
+                }*/
+
+                if (passwordProperty.Password[passwordProperty.MinimumLength - 1] == passwordProperty.Character && passwordProperty.Password[passwordProperty.MaximumLength - 1] != passwordProperty.Character 
+                    || passwordProperty.Password[passwordProperty.MinimumLength - 1] != passwordProperty.Character && passwordProperty.Password[passwordProperty.MaximumLength - 1] == passwordProperty.Character)
                 {
                     Console.WriteLine($"Found : {passwordProperty.Password}");
                     i++;
