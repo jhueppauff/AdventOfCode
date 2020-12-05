@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "Advent5": {
+      "commandName": "Project",
+      "commandLineArgs": "true"
+    }
+  }
+}
