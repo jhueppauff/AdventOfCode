@@ -13,21 +13,28 @@ namespace Advent6
             string content = await File.ReadAllTextAsync("data.txt").ConfigureAwait(false);
 
             string[] groups = content.Split(new string[] { "\r\n\r\n" }, StringSplitOptions.RemoveEmptyEntries);
-            List<int> countOfAnsweres = new List<int>();
+            List<int> countOfAnsweresA = new List<int>();
 
             foreach (string group in groups)
             {
-                countOfAnsweres.Add(group.Replace("\r\n", "").Distinct().Count());
+                countOfAnsweresA.Add(group.Replace("\r\n", "").Distinct().Count());
             }
 
-            int result = 0;
+            int resultA = 0;
 
-            foreach (int count in countOfAnsweres)
+            foreach (int count in countOfAnsweresA)
             {
-                result += count;
+                resultA += count;
             }
 
-            Console.WriteLine($"Result {result}");
+            var resultB = content.Split("\r\n\r\n", StringSplitOptions.RemoveEmptyEntries)
+                .Select(group => group.Split("\r\n", StringSplitOptions.RemoveEmptyEntries)
+                    .Select(person => person.ToCharArray())
+                    .Aggregate<IEnumerable<char>>((prev, next) => prev.Intersect(next)).ToList())
+                .Sum(x => x.Count);
+
+            Console.WriteLine($"Result Part 1 {resultA}");
+            Console.WriteLine($"Result Part 2 {resultB}");
         }
     }
 }
